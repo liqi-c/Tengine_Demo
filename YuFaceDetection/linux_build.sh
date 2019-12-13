@@ -26,4 +26,3 @@ make
 ## Test like below :
 
 cp $Tengine_Dir/lib ./data/ -rf 
-#./build/MTCNN -i ./data/images/mtcnn_face6.jpg -d ./data/models -r 100

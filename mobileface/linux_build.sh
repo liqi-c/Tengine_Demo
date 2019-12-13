@@ -29,5 +29,5 @@ make
 
 ## Test like below :
 
-cp $Tengine_Dir/lib ./data/ -rf 
-
+#cp $Tengine_Dir/lib ./data/ -rf  
+#./build/MobileFace -m ./data/mobileface.tmfile -i ./data/mobileface01.jpg

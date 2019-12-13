@@ -30,4 +30,4 @@ make
 ## Test like below :
 
 cp $Tengine_Dir/lib ./data/ -rf 
-#./Classify -m ../data/models/mobilenet_quant_v1_224_1206.tmfile -l ../data/models/imagenet_slim_labels.txt -i ../data/images/cat.jpg
+#./mobilenet_tflite -m ../data/models/mobilenet_quant_v1_224_1206.tmfile -l ../data/models/imagenet_slim_labels.txt -i ../data/images/cat.jpg

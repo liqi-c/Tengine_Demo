@@ -128,15 +128,35 @@ int test_graph(graph_t graph, const char* dump_file, const float means[], const 
 int main(int argc, char* argv[])
 {
     int res;
-    while((res = getopt(argc, argv, "r:")) != -1)
+	std::string model_file;
+    if(argc == 1)
+    {
+		std::cout << "[Usage]: " << argv[0] << " [-h]\n"
+                << "    [-m model_file] [-i image_file] [-r repeat_count]\n" ;
+        return 0;
+    }
+	
+    while((res = getopt(argc, argv, "m:i:r:h")) != -1)
     {
         switch(res)
         {
+            case 'm':
+                model_file = optarg;
+                break;
+            case 'i':
+                image_file = optarg;
+                break;
             case 'r':
-                repeat_count = strtoul(optarg, NULL, 10);
+                repeat_count = std::strtoul(optarg, NULL, 10);
                 break;
+            case 'h':
+                std::cout << "[Usage]: " << argv[0] << " [-h]\n"
+                          << "    [-m model_file] [-i image_file] [-r repeat_count]\n" ;
+                return 0;
             default:
-                break;
+                std::cout << "[Usage]: " << argv[0] << " [-h]\n"
+                          << "    [-m model_file] [-i image_file] [-r repeat_count]\n" ;
+                return 0;
         }
     }
 
@@ -154,7 +174,7 @@ int main(int argc, char* argv[])
  //       return -1;
  //   }
 
-    graph_t graph = create_graph(nullptr, "tengine", tengine_model_file);
+    graph_t graph = create_graph(nullptr, "tengine", model_file.c_str());
     if(graph == nullptr)
     {
         std::cout << "Create graph failed\n";
