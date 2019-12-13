@@ -1,18 +1,22 @@
-#/bin/bash
+#!/bin/bash
 
-Tengine_Dir=/home/qli/tengine/install
-EMBEDDED_CROSS_ROOT=/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/bin
-export PATH=${EMBEDDED_CROSS_ROOT}:${PATH}
-CC=arm-himix200-linux-gcc 
-XX=arm-himix200-linux-g++
+Tengine_Dir=/mnt/e/Mygithub/Tengine_Demo/TE-BU-E000-openx86/pre-built/linux_x86
+
+#EMBEDDED_CROSS_ROOT=/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/bin
+#export PATH=${EMBEDDED_CROSS_ROOT}:${PATH}
+
+CC=gcc 
+XX=g++
 
 if [ ! -d $Tengine_Dir/include ] || [ ! -d $Tengine_Dir/lib ] ; then 
-	echo "Please check tengine dir configure ."
+	echo "Please check tengine dir configure . Tengine_Dir=$Tengine_Dir"
 	exit 
 fi 
+echo "TENGINE_DIR=$Tengine_Dir. CC=$CC. XX=$XX."
+
 if [ -d build ]; then 
 	rm build -rf 
-fi 
+fi
 mkdir build 
 cd build 
 

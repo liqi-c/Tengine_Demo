@@ -1,8 +1,8 @@
 #/bin/bash
 
-Tengine_Dir=/home/qli/tengine/install
-EMBEDDED_CROSS_ROOT=/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/bin
-export PATH=${EMBEDDED_CROSS_ROOT}:${PATH}
+Tengine_Dir=/mnt/e/Mygithub/Tengine_Demo/TE-BU-E000-openx86/pre-built/linux_x86
+#EMBEDDED_CROSS_ROOT=/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/bin
+#export PATH=${EMBEDDED_CROSS_ROOT}:${PATH}
 CC=gcc 
 XX=g++
 
