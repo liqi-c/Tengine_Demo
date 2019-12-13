@@ -1,6 +1,33 @@
-#/bin/bash
+#!/bin/bash
 
-cmake -DTENGINE_DIR=/home/rk/TE-3399-1.7.1/pre-built/linux_arm64 \
-	-DCMAKE_C_COMPILER=gcc \
-	-DCMAKE_CXX_COMPILER=g++ \
+Tengine_Dir=/mnt/e/Mygithub/Tengine_Demo/TE-BU-E000-openx86/pre-built/linux_x86
+
+#EMBEDDED_CROSS_ROOT=/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/bin
+#export PATH=${EMBEDDED_CROSS_ROOT}:${PATH}
+
+CC=gcc 
+XX=g++
+
+if [ ! -d $Tengine_Dir/include ] || [ ! -d $Tengine_Dir/lib ] ; then 
+	echo "Please check tengine dir configure . Tengine_Dir=$Tengine_Dir"
+	exit 
+fi 
+echo "TENGINE_DIR=$Tengine_Dir. CC=$CC. XX=$XX."
+
+if [ -d build ]; then 
+	rm build -rf 
+fi
+mkdir build 
+cd build 
+
+cmake -DTENGINE_DIR=$Tengine_Dir \
+	-DCMAKE_C_COMPILER=$CC \
+	-DCMAKE_CXX_COMPILER=$XX \
 	..
+
+make  
+
+## Test like below :
+
+cp $Tengine_Dir/lib ./data/ -rf 
+
