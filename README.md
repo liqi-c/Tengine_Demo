@@ -3,7 +3,7 @@
 
 ## 编译说明 
 ## linux X86编译和执行 
-'''
-	编译：All_build.sh 
-	执行：All_build.sh run 
-'''
+''' 
+	编译：All_build.sh    
+	执行：All_build.sh run    
+''' 
