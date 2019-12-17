@@ -97,3 +97,7 @@ if [ "$1" = "run" ]; then
 	#./build/tflite-int8-mobilenet/Mobilenet_TFLITE -m ./tflite-int8-mobilenet/data/models/mobilenet_quant_v1_224_1206.tmfile -l ./tflite-int8-mobilenet/data/models/imagenet_slim_labels.txt -i ./tflite-int8-mobilenet/data/images/cat.jpg
 fi 
 
+if [ "$1" = "clean" ]; then 
+	rm build -rf 
+	rm save.jpg caffe_output_data.txt
+fi
