@@ -144,7 +144,7 @@ bool run_tengine_library(const char* model_file, const char* label_file, const c
 {
     // init
     init_tengine();
-    std::cout << "tengine library version: " << get_tengine_version() << "\n";
+   // std::cout << "tengine library version: " << get_tengine_version() << "\n";
     if(request_tengine_version("1.2") < 0)
         return false;
 

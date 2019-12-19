@@ -10,25 +10,14 @@
 #include "tengine_c_api.h"
 #include "common_util.hpp"
 
-const char* mxnet_text_file = "./models/model-symbol.json";
-const char* mxnet_model_file = "./models/model-mobilefacenet-128-0077.params";
-
-const char* caffe_text_file = "./models/model-77.prototxt";
-const char* caffe_model_file = "./models/model-77.caffemodel";
-
 const char* tengine_model_file = "../mobileface.tmfile";
-
 const char* image_file = "../mobileface01.jpg";
-// const char* image_file = "./tests/images/mobileface02.jpg";
 
 using namespace TEngine;
 
 int repeat_count = 1;
 int img_h = 112;
 int img_w = 112;
-
-const float mxnet_mean[3] = {0.0, 0.0, 0.0};
-const float mxnet_scale = 1.0;
 
 const float caffe_mean[3] = {127.5, 127.5, 127.5};
 const float caffe_scale = 0.00781;
@@ -162,17 +151,11 @@ int main(int argc, char* argv[])
 
     init_tengine();
 
-    std::cout << "Tengine version: " << get_tengine_version() << "\n";
-
+    std::cout << "\nModel file : " << model_file << "\n"
+              << "image file : " << image_file << "\n";
+  
     if(request_tengine_version("1.0") < 0)
         return 1;
-
- //   graph_t mxnet_graph = create_graph(nullptr, "mxnet", mxnet_text_file, mxnet_model_file);
- //   if(mxnet_graph == nullptr)
- //   {
- //       std::cout << "Create mxnet_graph failed\n";
- //       return -1;
- //   }
 
     graph_t graph = create_graph(nullptr, "tengine", model_file.c_str());
     if(graph == nullptr)
@@ -181,17 +164,10 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-//    std::cout << "Test mxnet graph:\n";
-//    if(test_graph(mxnet_graph, "./mxnet_output_data.txt", mxnet_mean, mxnet_scale) < 0)
-//        return -1;
-
-    std::cout << "Test caffe graph:\n";
-    if(test_graph(graph, "./caffe_output_data.txt", caffe_mean, caffe_scale) < 0)
+    if(test_graph(graph, "./mobilefacenet_output_data.txt", caffe_mean, caffe_scale) < 0)
         return -1;
 
-//    postrun_graph(mxnet_graph);
     postrun_graph(graph);
-//    destroy_graph(mxnet_graph);
     destroy_graph(graph);
     release_tengine();
 

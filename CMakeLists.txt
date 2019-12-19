@@ -32,3 +32,5 @@ add_subdirectory(ssd                    )
 add_subdirectory(tflite-int8-mobilenet  )
 add_subdirectory(yolov2                 )
 
+project(test)
+

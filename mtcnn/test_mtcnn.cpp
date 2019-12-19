@@ -33,7 +33,6 @@ int main(int argc, char** argv)
     const std::string root_path = "./";//get_root_path();
     std::string img_name = root_path + "tests/images/mtcnn_face4.jpg";
     std::string model_dir = root_path + "models/";
-    std::string sv_name = "result.jpg";
 	int repeat_count = 1;
 
     if(init_tengine() < 0)
@@ -57,10 +56,7 @@ int main(int argc, char** argv)
                 break;
             case 'i':
                 img_name = optarg;
-                break;
-            case 's':
-                sv_name = optarg;
-                break;				
+                break;			
             case 'r':
                 repeat_count = std::strtoul(optarg, NULL, 10);
                 break;
@@ -72,7 +68,9 @@ int main(int argc, char** argv)
                 break;
         }
     }
-
+    std::cout << "\n Model_dir : " << model_dir << "\n"
+              << "image file : " << img_name << "\n";
+			  
     image im = imread(img_name.c_str());
 
     int min_size = 40;
@@ -124,7 +122,7 @@ int main(int argc, char** argv)
         }
     }
 
-    save_image(im, "save.jpg");
+    save_image(im, "save");
     free_image(im);
     delete det;
 

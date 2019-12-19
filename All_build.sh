@@ -1,9 +1,9 @@
 #!/bin/bash
 
 CURRENT_DIR=$PWD 
-	echo "CURRENT_DIR=$CURRENT_DIR ----------"
+	echo "CURRENT_DIR=$CURRENT_DIR "
 
-if [ "$1" = "help" ] || [ "$1" = "-help" ] || [ "$1" = "-h" ] ; then 
+if [ "$1" = "help" ] || [ "$1" = "-help" ] || [ "$1" = "-h" ] || [ "$1" = "" ] ; then 
 	echo "Build : "
 	echo "	$0 x86/arm32/arm64/hisix200/hisiv300/hisiv500"
 	echo "Run : "
@@ -12,7 +12,7 @@ fi
 
 function BUILD () {
 	echo "-----------build start ----------"
-	echo "-----------Tengine_Dir=$Tengine_Dir----------"
+	echo " Tengine_Dir=$Tengine_Dir ."
 	if [ ! -d $Tengine_Dir/include ] || [ ! -d $Tengine_Dir/lib ] ; then 
 		echo "Please check tengine dir configure ."
 		exit 
@@ -93,11 +93,14 @@ if [ "$1" = "run" ]; then
 	./build/mtcnn/MTCNN -i ./mtcnn/data/images/mtcnn_face6.jpg -d ./mtcnn/data/models -r 1 
 
 	echo "***********************************************************************"
-	#echo "\n\nTest mobilenet_tflite "
-	#./build/tflite-int8-mobilenet/Mobilenet_TFLITE -m ./tflite-int8-mobilenet/data/models/mobilenet_quant_v1_224_1206.tmfile -l ./tflite-int8-mobilenet/data/models/imagenet_slim_labels.txt -i ./tflite-int8-mobilenet/data/images/cat.jpg
+	echo " Test mobilenet_tflite "
+	./build/tflite-int8-mobilenet/Mobilenet_TFLITE -m ./tflite-int8-mobilenet/data/models/mobilenet_quant_v1_224_1206.tmfile -l ./tflite-int8-mobilenet/data/models/imagenet_slim_labels.txt -i ./tflite-int8-mobilenet/data/images/cat.jpg
 fi 
 
 if [ "$1" = "clean" ]; then 
+	
+	echo "Clean "
 	rm build -rf 
-	rm save.jpg caffe_output_data.txt
-fi
+	rm save.jpg mobilefacenet_output_data.txt
+	
+fi 
