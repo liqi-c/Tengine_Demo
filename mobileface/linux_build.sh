@@ -1,6 +1,7 @@
 #!/bin/bash
 
-Tengine_Dir=/mnt/e/Mygithub/Tengine_Demo/TE-BU-E000-openx86/pre-built/linux_x86
+TENGINE_ROOT=`echo $PWD | awk -F"Tengine_Demo" '{print $1}'`
+Tengine_Dir=$TENGINE_ROOT/Tengine_Demo/Tengine_lib/TE-BU-E000-x86/pre-built/linux_x86
 
 #EMBEDDED_CROSS_ROOT=/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/bin
 #export PATH=${EMBEDDED_CROSS_ROOT}:${PATH}
