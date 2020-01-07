@@ -1,6 +1,6 @@
 
 cmake_minimum_required (VERSION 2.8)
-project(LIGHTEN_CNN)
+project(lighten_cnn)
 
 set( INSTALL_DIR ${TENGINE_DIR}/)
 set( TENGINE_LIBS tengine hclcpu)
@@ -12,6 +12,6 @@ include_directories(${INSTALL_DIR}/include)
 link_directories(${INSTALL_DIR}/lib)
 #exe
 set( CODE_SRCS lighten_cnn.cpp )
-add_executable(LIGHTEN_CNN ${CODE_SRCS})
+add_executable(lighten_cnn ${CODE_SRCS})
 
-target_link_libraries(LIGHTEN_CNN ${TENGINE_LIBS} ${PROTOBUF_LIB}  ${BLAS_LIB} ${ACL_LIB})
+target_link_libraries(lighten_cnn ${TENGINE_LIBS} ${PROTOBUF_LIB}  ${BLAS_LIB} ${ACL_LIB})

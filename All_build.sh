@@ -5,7 +5,7 @@ CURRENT_DIR=$PWD
 
 if [ "$1" = "help" ] || [ "$1" = "-help" ] || [ "$1" = "-h" ] || [ "$1" = "" ] ; then 
 	echo "Build : "
-	echo "	$0 x86/arm32/arm64/hisix200/hisiv300/hisiv500"
+	echo "	$0 x86/arm32/arm32_cross/arm64/arm64_cross/hisix200/hisiv300/hisiv500"
 	echo "Run : "
 	echo "	$0 run"
 fi
@@ -17,11 +17,11 @@ function BUILD () {
 		echo "Please check tengine dir configure ."
 		exit 
 	fi 
-	if [ -d build ]; then 
-		rm build -rf 
+	if [ -d build_$1 ]; then 
+		rm build_$1 -rf 
 	fi 
-	mkdir build 
-	cd build 
+	mkdir build_$1 
+	cd build_$1 
 	
 	cmake -DTENGINE_DIR=$Tengine_Dir \
 		-DCMAKE_C_COMPILER=$CC \
@@ -37,45 +37,48 @@ if [ "$1" = "x86" ]; then
 	Tengine_Dir=${CURRENT_DIR}/Tengine_lib/TE-BU-E000-x86/pre-built/linux_x86
 	CC=gcc 
 	XX=g++
-	BUILD
+	BUILD $1
 elif [ "$1" = "arm32" ]; then 
 	Tengine_Dir=$CURRENT_DIR/Tengine_lib/TE-BU-E000-arm32/pre-built/linux_arm32
 	CC=gcc 
 	XX=g++
-	BUILD
+	BUILD $1
 elif [ "$1" = "arm64" ]; then
 	Tengine_Dir=$CURRENT_DIR/Tengine_lib/TE-BU-E000-arm64/pre-built/linux_arm64
 	CC=gcc
 	XX=g++
-	BUILD	
+	BUILD $1
 elif [ "$1" = "arm32_cross" ]; then 
-	Tengine_Dir=$CURRENT_DIR/Tengine_lib/TE-BU-E000-openx86/pre-built/linux_x86
+	Tengine_Dir=$CURRENT_DIR/Tengine_lib/TE-BU-E000-arm32/pre-built/linux_arm32
 	CC=arm-linux-gnueabihf-gcc 
 	XX=arm-linux-gnueabihf-g++
+	BUILD $1
 elif [ "$1" = "arm64_cross" ]; then
 	Tengine_Dir=$CURRENT_DIR/Tengine_lib/TE-BU-E000-openx86/pre-built/linux_x86
 	CC=aarch64-linux-gnu-gcc
 	XX=aarch64-linux-gnu-g++	
+	BUILD $1
 elif [ "$1" = "hisix200" ]; then 
 	Tengine_Dir=$CURRENT_DIR/Tengine_lib/TE-BU-E000-hisix200/pre-built/linux_x86
 	EMBEDDED_CROSS_ROOT=/opt/hisi-linux/x86-arm/arm-hisix200-linux/target/bin
 	export PATH=${EMBEDDED_CROSS_ROOT}:${PATH}
 	CC=arm-himix200-linux-gcc 
 	XX=arm-himix200-linux-g++
-	BUILD	
+	BUILD $1
 elif [ "$1" = "hisiv300" ]; then 
 	Tengine_Dir=$CURRENT_DIR/Tengine_lib/TE-BU-E000-hisiv300/pre-built/linux_x86
 	EMBEDDED_CROSS_ROOT=/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/bin
 	export PATH=${EMBEDDED_CROSS_ROOT}:${PATH}
 	CC=arm-hisiv300-linux-gcc
 	XX=arm-hisiv300-linux-g++
-	BUILD
+	BUILD $1
 elif [ "$1" = "hisiv500" ]; then 
 	Tengine_Dir=$CURRENT_DIR/Tengine_lib/TE-BU-E000-hisiv500/pre-built/linux_arm32
 	EMBEDDED_CROSS_ROOT=/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/bin
 	export PATH=${EMBEDDED_CROSS_ROOT}:${PATH}
 	CC=arm-hisiv500-linux-gcc
 	XX=arm-hisiv500-linux-g++
+	BUILD $1	
 fi
 
 if [ "$1" = "run" ]; then 
@@ -102,5 +105,21 @@ if [ "$1" = "clean" ]; then
 	echo "Clean "
 	rm build -rf 
 	rm save.jpg mobilefacenet_output_data.txt
+	
+fi 
+
+if [ "$1" = "install" ]; then 
+
+	echo "$0 install <arm32/arm64/arm32_corss> <mobileface/tflite-int8-mobilenet/Classify>"
+	
+	if [ "$2" = "clean" ]; then 
+		rm install_$2 -rf 
+	fi
+	if [ ! -d  install_$2 ]; then 
+		mkdir install_$2
+	fi
+	cp $3 ./install_$2/$3 -rf 
+	cp ./build_$2/$3/$3  ./install_$2/$3/$3 
+#	cp ./Tengine_lib/TE-BU-E000-$2  ./install_$2/TE-BU-E000-$2 -rf
 	
 fi 
