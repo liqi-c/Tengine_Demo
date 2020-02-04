@@ -8,4 +8,4 @@
 	执行：All_build.sh run    
 ''' 
 
-详细说明参考：https://www.yuque.com/nesqi/xrp4hn/sk535l 
+详细说明参考：https://www.yuque.com/nesqi/agg42y/sk535l
