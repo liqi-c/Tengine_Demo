@@ -7,3 +7,5 @@
 	编译：All_build.sh    
 	执行：All_build.sh run    
 ''' 
+
+详细说明参考：https://www.yuque.com/nesqi/xrp4hn/sk535l 
